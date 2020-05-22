@@ -7,8 +7,8 @@
 
 /* dico.c
    ------
-Ces fonctions piochent au hasard un mot dans un fichier dictionnaire
-pour le jeu du pendu                                                 */
+Ces fonctions servent à piocher au hasard un mot dans un fichier
+dictionnaire pour le jeu du pendu                                    */
 
 /*= Directives de précompilation ====================================*/
 #include <stdio.h>
@@ -17,40 +17,43 @@ pour le jeu du pendu                                                 */
 #include <string.h>
 
 #include "dico.h"
-/* PiocherMot                                                        */
+
+// Fonction pour piocher un mot au hasard
 int piocherMot(char* motPioche)
 {
-    // Le pointeur de fichier qui va contenir notre fichier
+    /*- Déclarations ================================================*/
+    // Le pointeur de fichier qui va contenir le fichier dictionnaire
     FILE* dico = NULL;
-    int nombreMots = 0, numMotChoisi = 0, cptr = 0;
+    int nombreMots = 0;
+    int numMotChoisi = 0;
+    int cptr = 0;
     int caractereLu = 0;
-    // On ouvre le dictionnaire en lecture seule
+    // Ouverture du dictionnaire en lecture seule
     dico = fopen("dico.txt", "r");
 
-    // On vérifie si on a réussi à ouvrir le dictionnaire
-    // Si on n'a PAS réussi à ouvrir le fichier
+    // Si le fichier dictionnaire n'a pas pu être ouvert
     if (dico == NULL)
     {
         printf("\nImpossible de charger le dictionnaire de mots");
-        // On retourne 0 pour indiquer que la fonction a échoué
+        // Retour de 0 pour indiquer que la fonction a échoué
         return 0;
         // A la lecture du return, la fonction s'arrête immédiatement.
     }
 
-    // On compte le nombre de mots dans le fichier (il suffit de compter les entrées \n
+    // Somme des mots dans le fichier via comptage des '\n'
     do
     {
         caractereLu = fgetc(dico);
 
         if (caractereLu == '\n')
             nombreMots++;
-
+    // Jusqu'au caractère de fin de fichier(EOF)
     } while(caractereLu != EOF);
 
-    // On pioche un mot au hasard
+    // Pioche d'un mot au hasard
     numMotChoisi = genererNombreAleatoire(nombreMots);
 
-    // On recommence à lire le fichier depuis le début. On s'arrête lorsqu'on est arrivés au bon mot
+    // Le fichier est lu à nouveau jusqu'au mot pioché
     rewind(dico);
 
     while (numMotChoisi > 0)
@@ -61,18 +64,21 @@ int piocherMot(char* motPioche)
             numMotChoisi--;
     }
 
-    /* Le curseur du fichier est positionné au bon endroit.
-    On n'a plus qu'à faire un fgets qui lira la ligne */
+    // Le curseur du fichier est positionné au bon endroit pour lire la ligne
     fgets(motPioche, 100, dico);
+    fgets
 
-    // On retire l'\n à la fin
+    // Modification du '\n' en '\0' en fin de ligne
     motPioche[strlen(motPioche) - 1] = '\0';
+
+    // Fermeture du fichier dico
     fclose(dico);
 
-    // Tout s'est bien passé, on retourne 1
+    // La fonction s'est déroulée normalement
     return 1;
 }
 
+// Fonction pour générer un nombre aléatoire utile à la fonction piocherMot
 int genererNombreAleatoire(int nombreMax)
 {
     srand(time(NULL));
