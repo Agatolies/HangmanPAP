@@ -48,7 +48,7 @@ int piocherMot(char* motPioche)
     } while(caractereLu != EOF);
 
     // On pioche un mot au hasard
-    numMotChoisi = nombreAleatoire(nombreMots);
+    numMotChoisi = genererNombreAleatoire(nombreMots);
 
     // On recommence à lire le fichier depuis le début. On s'arrête lorsqu'on est arrivés au bon mot
     rewind(dico);
@@ -73,7 +73,7 @@ int piocherMot(char* motPioche)
     return 1;
 }
 
-int nombreAleatoire(int nombreMax)
+int genererNombreAleatoire(int nombreMax)
 {
     srand(time(NULL));
     return (rand() % nombreMax);

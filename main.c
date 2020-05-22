@@ -22,9 +22,9 @@
 #define FALSE 0
 
 /*= Prototypes des fonctions ========================================*/
-int  gagne           (int*, long       );
-int  rechercheLettre (char, char*, int*);
-char lireCaractere   (                 );
+int  verifierVictoire (int*, long       );
+int  rechercherLettre (char, char*, int*);
+char lireCaractere    (                 );
 
 /*= Fonction principale =============================================*/
 int main(int argc, char* argv)
@@ -63,7 +63,7 @@ int main(int argc, char* argv)
         lettreTrouvee[cptr] = 0;
 
     // On continue à jouer tant qu'il reste au moins un coup à jouer ou qu'on n'a pas gagné
-    while (coupsRestants > 0 && gagne(lettreTrouvee, tailleMot) == FALSE)
+    while (coupsRestants > 0 && verifierVictoire(lettreTrouvee, tailleMot) == FALSE)
     {
         printf("\n\nIl vous reste %ld coups a jouer", coupsRestants);
         printf("\nQuel est le mot secret ? ");
@@ -81,12 +81,12 @@ int main(int argc, char* argv)
         lettre = lireCaractere();
 
         // Si ce n'était PAS une lettre du motSecret
-        if (rechercheLettre(lettre, motSecret, lettreTrouvee) == FALSE)
+        if (rechercherLettre(lettre, motSecret, lettreTrouvee) == FALSE)
             // On enlève un coup au joueur
             coupsRestants--;
     }
 
-    if (gagne(lettreTrouvee, tailleMot))
+    if (verifierVictoire(lettreTrouvee, tailleMot))
         printf("\n\nGagne ! Le mot secret etait bien : %s", motSecret);
     else
         printf("\n\nPerdu ! Le mot secret etait : %s", motSecret);
@@ -115,7 +115,7 @@ char lireCaractere()
     return caractere;
 }
 
-int gagne(int* lettreTrouvee, long tailleMot)
+int verifierVictoire(int* lettreTrouvee, long tailleMot)
 {
     /*= Déclarations ================================================*/
     long cptr = 0;
@@ -129,7 +129,7 @@ int gagne(int* lettreTrouvee, long tailleMot)
     return joueurGagne;
 }
 
-int rechercheLettre(char lettre, char* motSecret, int* lettreTrouvee)
+int rechercherLettre(char lettre, char* motSecret, int* lettreTrouvee)
 {
     /*= Déclarations ================================================*/
     long cptr = 0;
