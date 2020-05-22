@@ -17,6 +17,10 @@
 
 #include "dico.h"
 
+/*= Constantes symboliques ==========================================*/
+#define TRUE  1
+#define FALSE 0
+
 /*= Prototypes des fonctions ========================================*/
 int  gagne           (int*, long       );
 int  rechercheLettre (char, char*, int*);
@@ -43,7 +47,7 @@ int main(int argc, char* argv)
     printf("Bienvenue dans le Pendu !\n\n");
 
     // Fonction pour aller piocher le mot à trouver. Retourne 0 si erreur
-    if (!piocherMot(motSecret))
+    if (piocherMot(motSecret) == FALSE)
         exit(0);
 
     // Calculer la taille du tableau contenant le mot à trouver.
@@ -59,7 +63,7 @@ int main(int argc, char* argv)
         lettreTrouvee[cptr] = 0;
 
     // On continue à jouer tant qu'il reste au moins un coup à jouer ou qu'on n'a pas gagné
-    while (coupsRestants > 0 && !gagne(lettreTrouvee, tailleMot))
+    while (coupsRestants > 0 && gagne(lettreTrouvee, tailleMot) == FALSE)
     {
         printf("\n\nIl vous reste %ld coups a jouer", coupsRestants);
         printf("\nQuel est le mot secret ? ");
@@ -77,7 +81,7 @@ int main(int argc, char* argv)
         lettre = lireCaractere();
 
         // Si ce n'était PAS une lettre du motSecret
-        if (!rechercheLettre(lettre, motSecret, lettreTrouvee))
+        if (rechercheLettre(lettre, motSecret, lettreTrouvee) == FALSE)
             // On enlève un coup au joueur
             coupsRestants--;
     }
