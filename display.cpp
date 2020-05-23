@@ -41,42 +41,47 @@ char lireCaractere()
 
 void afficherMessageIntroduction()
 {
-    printf("Bienvenue dans le Pendouillant !\n\n");
+    printf("  _           ______              _             _ _ _             _   \n");
+    printf(" | |          | ___ \\            | |           (_) | |           | |  \n");
+    printf(" | |     ___  | |_/ /__ _ __   __| | ___  _   _ _| | | __ _ _ __ | |_ \n");
+    printf(" | |    / _ \\ |  __/ _ \\ '_ \\ / _` |/ _ \\| | | | | | |/ _` | '_ \\| __|\n");
+    printf(" | |___|  __/ | | |  __/ | | | (_| | (_) | |_| | | | | (_| | | | | |_ \n");
+    printf(" \\_____/\\___| \\_|  \\___|_| |_|\\__,_|\\___/ \\__,_|_|_|_|\\__,_|_| |_|\\__|\n\n");
 }
 
 void afficherMessageCoupsRestants(int coupsRestants)
 {
-    printf("\n\nIl vous reste %d coups a jouer", coupsRestants);
+    printf("\n\n Il vous reste %d coups a jouer", coupsRestants);
 }
 
 void afficherMessageMotSecret(char* motMasque)
 {
-    printf("\nQuel est le mot secret ? %s", motMasque);
+    printf("\n Quel est le mot secret ? %s", motMasque);
 }
 
 void afficherMessageProposerLettre()
 {
-    printf("\nProposez une lettre : ");
+    printf("\n Proposez une lettre : ");
 }
 
 void afficherMessageGagnant(char* motSecret)
 {
-    printf("\n\nGagne ! Le mot secret etait bien : %s", motSecret);
+    printf("\n\n Gagne ! Le mot secret etait bien : %s", motSecret);
 }
 
 void afficherMessagePerdant(char* motSecret)
 {
-    printf("\n\nPerdu ! Le mot secret etait : %s", motSecret);
+    printf("\n\n Perdu ! Le mot secret etait : %s", motSecret);
 }
 
 void afficherMessageErreurDico()
 {
-    printf("\nImpossible de charger le dictionnaire de mots");
+    printf("\n Impossible de charger le dictionnaire de mots");
 }
 
 void afficherMessageVotreChoix()
 {
-    printf("\nVotre choix : ");
+    printf("\n Votre choix : ");
 }
 
 void afficherPendu(int cptrErreur)
@@ -102,9 +107,9 @@ void afficherPendu(int cptrErreur)
 
 void afficherMenu()
 {
-    printf("\n<1>   Nouvelle partie\n");
-    //printf("<2>   Options de jeu\n");
-    printf("<Q>   Quitter\n");
+    printf("\n <1>   Nouvelle partie\n");
+    //printf(" <2>   Options de jeu\n");
+    printf(" <Q>   Quitter\n");
 }
 
 
