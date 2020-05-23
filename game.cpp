@@ -15,12 +15,11 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include <myconio.h>
 
 #include "game.h"
 #include "display.h"
 #include "dico.h"
-
+#include "screen.h"
 
 /*= CONSTANTES SYMBOLIQUES ==========================================*/
 
@@ -48,13 +47,12 @@ int demarrerJeu()
     initialiser();
 
     // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
-    rafraichirEcranPendu();
+    rafraichirEcranPendu(coupsRestants);
     while (coupsRestants > 0 && verifierVictoire(lettresTrouvees, tailleMot) == FALSE)
     {
         jouerCoup();
-        rafraichirEcranPendu();
+        rafraichirEcranPendu(coupsRestants);
     }
-
 
     afficherMessageFinPartie();
 
@@ -91,44 +89,7 @@ void initialiser()
         lettresTrouvees[cptr] = 0;
 }
 
-void rafraichirEcranMenu()
-{
-    clrscr();
-    afficherMessageIntroduction();
-    afficherPendu(COUPS);
-    afficherMenu();
-    afficherMessageVotreChoix();
-}
 
-void gererChoixMenu()
-{
-    char choixUtilisateur = lireCaractere();
-
-    switch(choixUtilisateur)
-    {
-        case '1' :
-            demarrerJeu();
-            break;
-        case 'Q' :
-            quitterProgramme();
-            break;
-    }
-}
-
-void quitterProgramme()
-{
-    exit(0);
-}
-
-void rafraichirEcranPendu()
-{
-    clrscr();
-    afficherMessageIntroduction();
-    afficherPendu(COUPS - coupsRestants);
-    afficherMessageCoupsRestants(coupsRestants);
-    afficherMessageMotSecret(obtenirMotMasque());
-    afficherMessageProposerLettre();
-}
 
 void jouerCoup()
 {

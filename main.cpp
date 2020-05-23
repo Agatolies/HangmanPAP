@@ -10,7 +10,7 @@
 /*                                                                   */
 /*= DIRECTIVES DE PRECOMPILATION ====================================*/
 
-#include "game.h"
+#include "screen.h"
 
 /*= Fonction principale =============================================*/
 int main()
