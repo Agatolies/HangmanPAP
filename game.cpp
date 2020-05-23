@@ -26,6 +26,7 @@
 
 #define TRUE  1
 #define FALSE 0
+#define COUPS 6
 
 /*- DECLARATIONS GLOBALES -------------------------------------------*/
 
@@ -47,10 +48,11 @@ int demarrerJeu()
     initialiser();
 
     // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
+    rafraichirEcranPendu();
     while (coupsRestants > 0 && verifierVictoire(lettresTrouvees, tailleMot) == FALSE)
     {
-        rafraichirEcran();
         jouerCoup();
+        rafraichirEcranPendu();
     }
 
 
@@ -67,12 +69,12 @@ void initialiser()
     // Réinitialisation des variables globales
     motSecret[100] = {0};
     lettresTrouvees = NULL;
-    coupsRestants = 10;
+    coupsRestants = COUPS;
     tailleMot = 0;
 
     // Verification que la fonction piocherMot retourne bien un motSecret existant
     if (piocherMot(motSecret) == FALSE)
-        exit(0);
+        quitterProgramme();
 
     // Calculer la taille du tableau contenant le mot a trouver.
     tailleMot = strlen(motSecret);
@@ -82,32 +84,59 @@ void initialiser()
 
     // Verification de la fonction malloc pour lettresTrouvees
     if (lettresTrouvees == NULL)
-        exit(0);
+        quitterProgramme();
 
     // Initialisation de toutes les cellules lettresTrouvees a 0
     for (cptr = 0 ; cptr < tailleMot ; cptr++)
         lettresTrouvees[cptr] = 0;
 }
 
-void rafraichirEcran()
+void rafraichirEcranMenu()
 {
     clrscr();
     afficherMessageIntroduction();
+    afficherPendu(COUPS);
+    afficherMenu();
+    afficherMessageVotreChoix();
+}
+
+void gererChoixMenu()
+{
+    char choixUtilisateur = lireCaractere();
+
+    switch(choixUtilisateur)
+    {
+        case '1' :
+            demarrerJeu();
+            break;
+        case 'Q' :
+            quitterProgramme();
+            break;
+    }
+}
+
+void quitterProgramme()
+{
+    exit(0);
+}
+
+void rafraichirEcranPendu()
+{
+    clrscr();
+    afficherMessageIntroduction();
+    afficherPendu(COUPS - coupsRestants);
+    afficherMessageCoupsRestants(coupsRestants);
+    afficherMessageMotSecret(obtenirMotMasque());
+    afficherMessageProposerLettre();
 }
 
 void jouerCoup()
 {
-    int cptr = 0;
     // Stocke la lettre proposee par l'utilisateur
-    char lettreProposee = ' ';
+    char lettre = lireCaractere();
 
-    afficherMessageCoupsRestants(coupsRestants);
-    afficherMessageMotSecret(obtenirMotMasque());
-    afficherMessageProposerLettre();
-    lettreProposee = lireCaractere();
-
-    // Si lettrePorposee n'apparait pas dans motSecret, le joueur a un coup en moins
-    if (rechercherLettre(lettreProposee, motSecret, lettresTrouvees) == FALSE)
+    // Si lettre n'apparait pas dans motSecret, le joueur a un coup en moins
+    if (rechercherLettre(lettre, motSecret, lettresTrouvees) == FALSE)
         coupsRestants--;
 }
 

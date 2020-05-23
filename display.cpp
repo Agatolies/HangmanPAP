@@ -7,8 +7,8 @@
 /*                                                                   */
 /* display.cpp                                                       */
 /* ------                                                            */
-/* Ces fonctions g�rent les entr�es et les sorties depuis et vers    */
-/* la console                                                        */
+/* Ces fonctions gerent les entrees et les sorties depuis et vers    */
+/* la console (logique d'affichage)                                  */
 /*                                                                   */
 /*= DIRECTIVES DE PRECOMPILATION ====================================*/
 
@@ -73,4 +73,38 @@ void afficherMessageErreurDico()
 {
     printf("\nImpossible de charger le dictionnaire de mots");
 }
+
+void afficherMessageVotreChoix()
+{
+    printf("\nVotre choix : ");
+}
+
+void afficherPendu(int cptrErreur)
+{
+    char tete        = (cptrErreur >= 1) ? '@'  : ' ';
+    char buste       = (cptrErreur >= 2) ? '|'  : ' ';
+    char brasGauche  = (cptrErreur >= 3) ? '/'  : ' ';
+    char brasDroit   = (cptrErreur >= 4) ? '\\' : ' ';
+    char jambeGauche = (cptrErreur >= 5) ? '/'  : ' ';
+    char jambeDroite = (cptrErreur == 6) ? '\\' : ' ';
+
+    printf("      =========     \n");
+    printf("       ||/   |      \n");
+    printf("       ||    %c     \n", tete);
+    printf("       ||   %c%c%c  \n", brasGauche, buste, brasDroit);
+    printf("       ||    %c     \n", buste);
+    printf("       ||   %c %c   \n", jambeGauche, jambeDroite);
+    printf("   ____||__________ \n");
+    printf("  /    ||         /|\n");
+    printf(" /_______________/ /\n");
+    printf(" |_______________|/ \n");
+}
+
+void afficherMenu()
+{
+    printf("\n<1>   Nouvelle partie\n");
+    //printf("<2>   Options de jeu\n");
+    printf("<Q>   Quitter\n");
+}
+
 

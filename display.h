@@ -10,5 +10,8 @@ void afficherMessageProposerLettre();
 void afficherMessageGagnant(char*);
 void afficherMessagePerdant(char*);
 void afficherMessageErreurDico();
+void afficherMessageVotreChoix();
+void afficherPendu(int);
+void afficherMenu();
 
 #endif // DISPLAY_H_INCLUDED

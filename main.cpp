@@ -15,5 +15,7 @@
 /*= Fonction principale =============================================*/
 int main()
 {
-    return demarrerJeu();
+    rafraichirEcranMenu();
+    gererChoixMenu();
+    return 0;
 }

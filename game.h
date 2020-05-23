@@ -3,11 +3,15 @@
 
 int demarrerJeu();
 void initialiser();
-void rafraichirEcran();
 int rechercherLettre(char, char*, int*);
 void jouerCoup();
+void gererChoixMenu();
 char* obtenirMotMasque();
-void afficherMessageFinPartie();
 int verifierVictoire(int*, int);
+void afficherMessageFinPartie();
+void quitterProgramme();
+
+void rafraichirEcranMenu();
+void rafraichirEcranPendu();
 
 #endif // GAME_H_INCLUDED
