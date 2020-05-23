@@ -39,6 +39,7 @@ int* lettresTrouvees;
 // Compteur de coups restants (0 = fin du jeu)
 int coupsRestants;
 int tailleMot;
+int victoire;
 
 /*= FONCTIONS =======================================================*/
 
@@ -48,13 +49,19 @@ int demarrerJeu()
 
     // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
     rafraichirEcranPendu(coupsRestants);
-    while (coupsRestants > 0 && verifierVictoire(lettresTrouvees, tailleMot) == FALSE)
+    while (coupsRestants > 0 && victoire == FALSE)
     {
         jouerCoup();
         rafraichirEcranPendu(coupsRestants);
+        victoire = verifierVictoire(lettresTrouvees, tailleMot);
     }
 
     afficherMessageFinPartie();
+    afficherMessageRetourMenu();
+    lireCaractere();
+
+    // Liberation de la memoire allouee manuellement (par malloc)
+    free(lettresTrouvees);
 
     return 0;
 }
@@ -69,6 +76,7 @@ void initialiser()
     lettresTrouvees = NULL;
     coupsRestants = COUPS;
     tailleMot = 0;
+    victoire = FALSE;
 
     // Verification que la fonction piocherMot retourne bien un motSecret existant
     if (piocherMot(motSecret) == FALSE)
@@ -121,13 +129,9 @@ char* obtenirMotMasque()
 
 void afficherMessageFinPartie()
 {
-    if (verifierVictoire(lettresTrouvees, tailleMot) == TRUE)
-        afficherMessageGagnant(motSecret);
-    else
-        afficherMessagePerdant(motSecret);
-
-    // Liberation de la memoire allouee manuellement (par malloc)
-    free(lettresTrouvees);
+    (victoire == TRUE)
+        ? afficherMessageGagnant(motSecret)
+        : afficherMessagePerdant(motSecret);
 }
 
 // Fonction qui verifie si toutes les lettres du mot ont ete trouvees

@@ -32,7 +32,7 @@ void rafraichirEcranMenu()
     afficherMessageVotreChoix();
 }
 
-void gererChoixMenu()
+char gererChoixMenu()
 {
     char choixUtilisateur = lireCaractere();
 
@@ -45,6 +45,8 @@ void gererChoixMenu()
             quitterProgramme();
             break;
     }
+
+    return choixUtilisateur;
 }
 
 void quitterProgramme()

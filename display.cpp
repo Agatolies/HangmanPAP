@@ -84,6 +84,11 @@ void afficherMessageVotreChoix()
     printf("\n Votre choix : ");
 }
 
+void afficherMessageRetourMenu()
+{
+    printf("\n Appuyer deux fois sur <entree> pour revenir au Menu principal");
+}
+
 void afficherPendu(int cptrErreur)
 {
     char tete        = (cptrErreur >= 1) ? '@'  : ' ';
@@ -111,5 +116,7 @@ void afficherMenu()
     //printf(" <2>   Options de jeu\n");
     printf(" <Q>   Quitter\n");
 }
+
+
 
 

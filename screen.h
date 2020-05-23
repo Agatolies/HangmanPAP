@@ -3,7 +3,7 @@
 
 void rafraichirEcranMenu();
 void rafraichirEcranPendu(int);
-void gererChoixMenu();
+char gererChoixMenu();
 void quitterProgramme();
 
 #endif // SCREEN_H_INCLUDED

@@ -9,6 +9,4 @@ char* obtenirMotMasque();
 int verifierVictoire(int*, int);
 void afficherMessageFinPartie();
 
-
-
 #endif // GAME_H_INCLUDED

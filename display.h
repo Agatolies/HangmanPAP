@@ -11,6 +11,7 @@ void afficherMessageGagnant(char*);
 void afficherMessagePerdant(char*);
 void afficherMessageErreurDico();
 void afficherMessageVotreChoix();
+void afficherMessageRetourMenu();
 void afficherPendu(int);
 void afficherMenu();
 
