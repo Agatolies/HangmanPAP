@@ -34,7 +34,7 @@ int piocherMot(char* motPioche)
     // Si le fichier dictionnaire n'a pas pu être ouvert
     if (dico == NULL)
     {
-        printf("\nImpossible de charger le dictionnaire de mots");
+        afficherMessageErreurDico();
         // Retour de 0 pour indiquer que la fonction a échoué
         return 0;
         // A la lecture du return, la fonction s'arrête immédiatement.
@@ -66,7 +66,6 @@ int piocherMot(char* motPioche)
 
     // Le curseur du fichier est positionné au bon endroit pour lire la ligne
     fgets(motPioche, 100, dico);
-    fgets
 
     // Modification du '\n' en '\0' en fin de ligne
     motPioche[strlen(motPioche) - 1] = '\0';
