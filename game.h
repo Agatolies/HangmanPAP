@@ -3,6 +3,7 @@
 
 int demarrerJeu();
 void initialiser();
+void rafraichirEcran();
 int rechercherLettre(char, char*, int*);
 void jouerCoup();
 char* obtenirMotMasque();

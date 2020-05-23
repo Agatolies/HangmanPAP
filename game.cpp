@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <myconio.h>
 
 #include "game.h"
 #include "display.h"
@@ -43,27 +44,25 @@ int tailleMot;
 
 int demarrerJeu()
 {
-    /*- Traitements -------------------------------------------------*/
-
     initialiser();
-    afficherMessageIntroduction();
 
     // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
     while (coupsRestants > 0 && verifierVictoire(lettresTrouvees, tailleMot) == FALSE)
+    {
+        rafraichirEcran();
         jouerCoup();
+    }
+
 
     afficherMessageFinPartie();
 
     return 0;
 }
 
+/* Initialisation de toutes les variables utilisees par le jeu du pendu */
 void initialiser()
 {
-    /*= Declarations ================================================*/
-
     int cptr = 0;
-
-    /*= Traitements ================================================*/
 
     // Réinitialisation des variables globales
     motSecret[100] = {0};
@@ -71,7 +70,7 @@ void initialiser()
     coupsRestants = 10;
     tailleMot = 0;
 
-    //Verification que la fonction piocherMot retourne bien un motSecret existant
+    // Verification que la fonction piocherMot retourne bien un motSecret existant
     if (piocherMot(motSecret) == FALSE)
         exit(0);
 
@@ -90,17 +89,20 @@ void initialiser()
         lettresTrouvees[cptr] = 0;
 }
 
+void rafraichirEcran()
+{
+    clrscr();
+    afficherMessageIntroduction();
+}
+
 void jouerCoup()
 {
-    /*- Declarations ================================================*/
     int cptr = 0;
     // Stocke la lettre proposee par l'utilisateur
     char lettreProposee = ' ';
 
-    /*- Traitements =================================================*/
     afficherMessageCoupsRestants(coupsRestants);
     afficherMessageMotSecret(obtenirMotMasque());
-
     afficherMessageProposerLettre();
     lettreProposee = lireCaractere();
 
@@ -129,7 +131,6 @@ char* obtenirMotMasque()
 
 void afficherMessageFinPartie()
 {
-    /*- Traitements =================================================*/
     if (verifierVictoire(lettresTrouvees, tailleMot) == TRUE)
         afficherMessageGagnant(motSecret);
     else
@@ -143,11 +144,9 @@ void afficherMessageFinPartie()
 // Et donc que la partie est gagnee
 int verifierVictoire(int* lettresTrouvees, int tailleMot)
 {
-    /*= Declarations ================================================*/
     int cptr = 0;
     int joueurGagne = 1;
 
-    /*= Traitements ================================================*/
     for (cptr = 0 ; cptr < tailleMot ; cptr++)
         // Si l'une des lettres n'est pas encore trouvee, on sort de la condition
         if (lettresTrouvees[cptr] == 0)
@@ -162,11 +161,9 @@ int verifierVictoire(int* lettresTrouvees, int tailleMot)
 // Fonction qui verifie si la lettre proposee se trouve dans motSecret
 int rechercherLettre(char lettreProposee, char* motSecret, int* lettresTrouvees)
 {
-    /*= Declarations ================================================*/
     int cptr = 0;
     int lettreExacte = 0;
 
-    /*= Traitements ================================================*/
     // Verification que la lettre proposee se trouve dans motSecret
     for (cptr = 0 ; motSecret[cptr] != '\0' ; cptr++)
         // Si la lettre y est
