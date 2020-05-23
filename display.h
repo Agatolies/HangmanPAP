@@ -3,12 +3,9 @@
 
 char lireCaractere();
 
-void afficherLettreTrouvee(char*, int);
-void afficherLettreNonTrouvee();
-
 void afficherMessageIntroduction();
 void afficherMessageCoupsRestants(int);
-void afficherMessageMotSecret();
+void afficherMessageMotSecret(char*);
 void afficherMessageProposerLettre();
 void afficherMessageGagnant(char*);
 void afficherMessagePerdant(char*);

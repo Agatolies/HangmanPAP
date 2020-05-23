@@ -39,16 +39,6 @@ char lireCaractere()
     return caractere;
 }
 
-void afficherLettreTrouvee(char* motSecret, int cptr)
-{
-    printf("%c", motSecret[cptr]);
-}
-
-void afficherLettreNonTrouvee()
-{
-    printf("*");
-}
-
 void afficherMessageIntroduction()
 {
     printf("Bienvenue dans le Pendouillant !\n\n");
@@ -59,9 +49,9 @@ void afficherMessageCoupsRestants(int coupsRestants)
     printf("\n\nIl vous reste %d coups a jouer", coupsRestants);
 }
 
-void afficherMessageMotSecret()
+void afficherMessageMotSecret(char* motMasque)
 {
-    printf("\nQuel est le mot secret ? ");
+    printf("\nQuel est le mot secret ? %s", motMasque);
 }
 
 void afficherMessageProposerLettre()

@@ -26,26 +26,50 @@
 #define TRUE  1
 #define FALSE 0
 
+/*- DECLARATIONS GLOBALES -------------------------------------------*/
+
+/* L'utilisation des variables globales est justifiée par le fait que*/
+/* toutes les fonctions de ce module les utilisent.                  */
+
+// Mot a trouver pour gagner la partie
+char motSecret[100];
+// Un tableau de booleens. Chaque case correspond a une lettre du mot secret. 0 = lettre non trouvee, 1 = lettre trouvee
+int* lettresTrouvees;
+// Compteur de coups restants (0 = fin du jeu)
+int coupsRestants;
+int tailleMot;
+
 /*= FONCTIONS =======================================================*/
 
 int demarrerJeu()
 {
-    /*- DÃ©clarations ------------------------------------------------*/
-    // Stocke la lettre proposee par l'utilisateur
-    char lettreProposee = 0;
-    // Mot a trouver pour gagner la partie
-    char motSecret[100] = {0};
-    // Un tableau de boolï¿½ens. Chaque case correspond a une lettre du mot secret. 0 = lettre non trouvee, 1 = lettre trouvee
-    int* lettresTrouvees = NULL;
-    // Compteur de coups restants (0 = fin du jeu)
-    int coupsRestants = 10;
-    // Compteur pour parcourir les differents tableaux
-    int cptr = 0;
-    int tailleMot = 0;
-
     /*- Traitements -------------------------------------------------*/
 
+    initialiser();
     afficherMessageIntroduction();
+
+    // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
+    while (coupsRestants > 0 && verifierVictoire(lettresTrouvees, tailleMot) == FALSE)
+        jouerCoup();
+
+    afficherMessageFinPartie();
+
+    return 0;
+}
+
+void initialiser()
+{
+    /*= Declarations ================================================*/
+
+    int cptr = 0;
+
+    /*= Traitements ================================================*/
+
+    // Réinitialisation des variables globales
+    motSecret[100] = {0};
+    lettresTrouvees = NULL;
+    coupsRestants = 10;
+    tailleMot = 0;
 
     //Verification que la fonction piocherMot retourne bien un motSecret existant
     if (piocherMot(motSecret) == FALSE)
@@ -64,68 +88,46 @@ int demarrerJeu()
     // Initialisation de toutes les cellules lettresTrouvees a 0
     for (cptr = 0 ; cptr < tailleMot ; cptr++)
         lettresTrouvees[cptr] = 0;
-
-    essaisJeu(coupsRestants, tailleMot, lettresTrouvees, lettreProposee, motSecret);
-
-    afficherMessageFinPartie(lettresTrouvees,tailleMot,motSecret);
-
-    return 0;
 }
 
-// Fonction qui verifie si la lettre proposee se trouve dans motSecret
-int rechercherLettre(char lettreProposee, char* motSecret, int* lettresTrouvees)
-{
-    /*= Declarations ================================================*/
-    int cptr = 0;
-    int lettreExacte = 0;
-
-    /*= Traitements ================================================*/
-    // Verification que la lettre proposee se trouve dans motSecret
-    for (cptr = 0 ; motSecret[cptr] != '\0' ; cptr++)
-        // Si la lettre y est
-        if (lettreProposee == motSecret[cptr])
-        {
-            // Memorisation de la lettre presente dans motSecret
-            lettreExacte = 1;
-            // La case du tableau de booleens correspondant a la lettre actuelle est mise a 1
-            lettresTrouvees[cptr] = 1;
-        }
-
-    return lettreExacte;
-}
-
-//Fonction qui sert a lancer le jeu et les essais suivants
-void essaisJeu(int coupsRestants, int tailleMot, int* lettresTrouvees, char lettreProposee, char* motSecret)
+void jouerCoup()
 {
     /*- Declarations ================================================*/
     int cptr = 0;
+    // Stocke la lettre proposee par l'utilisateur
+    char lettreProposee = ' ';
 
     /*- Traitements =================================================*/
-    // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
-    while (coupsRestants > 0 && verifierVictoire(lettresTrouvees, tailleMot) == FALSE)
-    {
-        afficherMessageCoupsRestants(coupsRestants);
-        afficherMessageMotSecret();
+    afficherMessageCoupsRestants(coupsRestants);
+    afficherMessageMotSecret(obtenirMotMasque());
 
-        // Affichage du mot secret en masquant les lettres non trouvees - Exemple : *A**ON
-        for (cptr = 0 ; cptr < tailleMot ; cptr++)
-            // Affichage des lettres si trouvï¿½es
-            if (lettresTrouvees[cptr])
-                afficherLettreTrouvee(motSecret, cptr);
-            // Sinon, affichage d'etoiles pour les lettres manquantes
-            else
-                afficherLettreNonTrouvee();
+    afficherMessageProposerLettre();
+    lettreProposee = lireCaractere();
 
-        afficherMessageProposerLettre();
-        lettreProposee = lireCaractere();
-
-        // Si lettrePorposee n'apparait pas dans motSecret, le joueur a un coup en moins
-        if (rechercherLettre(lettreProposee, motSecret, lettresTrouvees) == FALSE)
-            coupsRestants--;
-    }
+    // Si lettrePorposee n'apparait pas dans motSecret, le joueur a un coup en moins
+    if (rechercherLettre(lettreProposee, motSecret, lettresTrouvees) == FALSE)
+        coupsRestants--;
 }
 
-void afficherMessageFinPartie(int* lettresTrouvees, int tailleMot, char* motSecret)
+char* obtenirMotMasque()
+{
+    char* motMasque = (char*) malloc(sizeof(char) * (tailleMot + 1));
+    int cptr = 0;
+
+    // Affichage du mot secret en masquant les lettres non trouvees - Exemple : *A**ON
+    for (cptr = 0 ; cptr < tailleMot ; cptr++)
+        // Affichage des lettres si trouvees
+        // Sinon, affichage d'etoiles pour les lettres manquantes
+        motMasque[cptr] = (lettresTrouvees[cptr] == TRUE)
+            ? motSecret[cptr]
+            : '*';
+
+    motMasque[tailleMot] = '\0';
+
+    return motMasque;
+}
+
+void afficherMessageFinPartie()
 {
     /*- Traitements =================================================*/
     if (verifierVictoire(lettresTrouvees, tailleMot) == TRUE)
@@ -155,4 +157,26 @@ int verifierVictoire(int* lettresTrouvees, int tailleMot)
         }
 
     return joueurGagne;
+}
+
+// Fonction qui verifie si la lettre proposee se trouve dans motSecret
+int rechercherLettre(char lettreProposee, char* motSecret, int* lettresTrouvees)
+{
+    /*= Declarations ================================================*/
+    int cptr = 0;
+    int lettreExacte = 0;
+
+    /*= Traitements ================================================*/
+    // Verification que la lettre proposee se trouve dans motSecret
+    for (cptr = 0 ; motSecret[cptr] != '\0' ; cptr++)
+        // Si la lettre y est
+        if (lettreProposee == motSecret[cptr])
+        {
+            // Memorisation de la lettre presente dans motSecret
+            lettreExacte = 1;
+            // La case du tableau de booleens correspondant a la lettre actuelle est mise a 1
+            lettresTrouvees[cptr] = 1;
+        }
+
+    return lettreExacte;
 }

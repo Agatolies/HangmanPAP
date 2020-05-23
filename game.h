@@ -2,9 +2,11 @@
 #define GAME_H_INCLUDED
 
 int demarrerJeu();
+void initialiser();
 int rechercherLettre(char, char*, int*);
-void essaisJeu(int, int, int*, char, char*);
-void afficherMessageFinPartie(int*, int, char*);
+void jouerCoup();
+char* obtenirMotMasque();
+void afficherMessageFinPartie();
 int verifierVictoire(int*, int);
 
 #endif // GAME_H_INCLUDED
