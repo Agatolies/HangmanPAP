@@ -1,16 +1,10 @@
-/*********************************************************************/
-/* Principes algorithmique et programmation - Examen final           */
-/*===================================================================*/
-/* Auteur   : Laure D'Este                                           */
-/* Date     : 2020-05-22                                             */
-/*********************************************************************/
+#ifndef GAME_H_INCLUDED
+#define GAME_H_INCLUDED
 
-/* Contient les prototypes des fonctions de game.c                   */
-
-#ifndef DEF_DISPLAY
-#define DEF_DISPLAY
-
-void debutJeu(char*, int, int*);
+int demarrerJeu();
+int rechercherLettre(char, char*, int*);
 void essaisJeu(int, int, int*, char, char*);
+void afficherMessageFinPartie(int*, int, char*);
+int verifierVictoire(int*, int);
 
-#endif
+#endif // GAME_H_INCLUDED

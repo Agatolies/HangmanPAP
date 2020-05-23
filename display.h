@@ -1,26 +1,17 @@
-/*********************************************************************/
-/* Principes algorithmique et programmation - Examen final           */
-/*===================================================================*/
-/* Auteur   : Laure D'Este                                           */
-/* Date     : 2020-05-22                                             */
-/*********************************************************************/
+#ifndef DISPLAY_H_INCLUDED
+#define DISPLAY_H_INCLUDED
 
-/* Contient les prototypes des fonctions de display.c                */
+char lireCaractere();
 
-
-#ifndef DEF_DISPLAY
-#define DEF_DISPLAY
+void afficherLettreTrouvee(char*, int);
+void afficherLettreNonTrouvee();
 
 void afficherMessageIntroduction();
 void afficherMessageCoupsRestants(int);
 void afficherMessageMotSecret();
-char lireCaractere();
-void afficherLettreTrouvee(char*, int);
-void afficherLettreNonTrouvee();
 void afficherMessageProposerLettre();
 void afficherMessageGagnant(char*);
 void afficherMessagePerdant(char*);
 void afficherMessageErreurDico();
 
-#endif
-
+#endif // DISPLAY_H_INCLUDED

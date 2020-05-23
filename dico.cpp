@@ -1,70 +1,73 @@
 /*********************************************************************/
-/* Principes algorithmique et programmation - Examen final           */
+/* Principes Algorithmique et Programmation - Examen final           */
 /*===================================================================*/
 /* Auteur   : Laure D'Este                                           */
-/* Date     : 2020-05-22                                             */
+/* Date     : 2020-05-23                                             */
 /*********************************************************************/
+/*                                                                   */
+/* dico.cpp                                                          */
+/* ------                                                            */
+/* Ces fonctions servent a piocher au hasard un mot dans un fichier  */
+/* dictionnaire pour le jeu du pendu                                 */
+/*                                                                   */
+/*= DIRECTIVES DE PRECOMPILATION ====================================*/
 
-/* dico.c
-   ------
-Ces fonctions servent à piocher au hasard un mot dans un fichier
-dictionnaire pour le jeu du pendu                                    */
-
-/*= Directives de précompilation ====================================*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 
 #include "dico.h"
+#include "display.h"
+
+/*= FONCTIONS =======================================================*/
 
 // Fonction pour piocher un mot au hasard
 int piocherMot(char* motPioche)
 {
-    /*- Déclarations ================================================*/
+    /*- Declarations ================================================*/
     // Le pointeur de fichier qui va contenir le fichier dictionnaire
     FILE* dico = NULL;
     int nombreMots = 0;
     int numMotChoisi = 0;
-    int cptr = 0;
-    int caractereLu = 0;
+    char caractereLu = ' ';
     // Ouverture du dictionnaire en lecture seule
     dico = fopen("dico.txt", "r");
 
-    // Si le fichier dictionnaire n'a pas pu être ouvert
+    // Si le fichier dictionnaire n'a pas pu etre ouvert
     if (dico == NULL)
     {
         afficherMessageErreurDico();
-        // Retour de 0 pour indiquer que la fonction a échoué
+        // Retour de 0 pour indiquer que la fonction a echoue
         return 0;
-        // A la lecture du return, la fonction s'arrête immédiatement.
+        // A la lecture du return, la fonction s'arrete immï¿½eiatement.
     }
 
     // Somme des mots dans le fichier via comptage des '\n'
     do
     {
-        caractereLu = fgetc(dico);
+        caractereLu = (char) fgetc(dico);
 
         if (caractereLu == '\n')
             nombreMots++;
-    // Jusqu'au caractère de fin de fichier(EOF)
+    // Jusqu'au caractere de fin de fichier(EOF)
     } while(caractereLu != EOF);
 
     // Pioche d'un mot au hasard
     numMotChoisi = genererNombreAleatoire(nombreMots);
 
-    // Le fichier est lu à nouveau jusqu'au mot pioché
+    // Le fichier est lu a nouveau jusqu'au mot pioche
     rewind(dico);
 
     while (numMotChoisi > 0)
     {
-        caractereLu = fgetc(dico);
+        caractereLu = (char) fgetc(dico);
 
         if (caractereLu == '\n')
             numMotChoisi--;
     }
 
-    // Le curseur du fichier est positionné au bon endroit pour lire la ligne
+    // Le curseur du fichier est positionne au bon endroit pour lire la ligne
     fgets(motPioche, 100, dico);
 
     // Modification du '\n' en '\0' en fin de ligne
@@ -73,15 +76,13 @@ int piocherMot(char* motPioche)
     // Fermeture du fichier dico
     fclose(dico);
 
-    // La fonction s'est déroulée normalement
+    // La fonction s'est deroulee normalement
     return 1;
 }
 
-// Fonction pour générer un nombre aléatoire utile à la fonction piocherMot
+// Fonction pour generer un nombre aleatoire utile a la fonction piocherMot
 int genererNombreAleatoire(int nombreMax)
 {
     srand(time(NULL));
     return (rand() % nombreMax);
 }
-
-
