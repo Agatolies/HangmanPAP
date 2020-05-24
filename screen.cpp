@@ -86,7 +86,7 @@ void rafraichirEcranPendu(int coupsRestants, char* lettresErronees)
 
 char gererChoixMenu()
 {
-    char choixUtilisateur = lireCaractere();
+    char choixUtilisateur = lireCaractereChoix("12Q");
 
     switch(choixUtilisateur)
     {
@@ -106,7 +106,7 @@ char gererChoixMenu()
 
 char gererChoixOptions()
 {
-    char choixUtilisateur = lireCaractere();
+    char choixUtilisateur = lireCaractereChoix("12Q");
 
     switch(choixUtilisateur)
     {
@@ -124,7 +124,7 @@ char gererChoixOptions()
 
 char gererChoixOptionsMode()
 {
-    char choixUtilisateur = lireCaractere();
+    char choixUtilisateur = lireCaractereChoix("VNIQ");
 
     switch(choixUtilisateur)
     {
@@ -140,7 +140,7 @@ char gererChoixOptionsMode()
 
 char gererChoixOptionsDifficulte()
 {
-    char choixUtilisateur = lireCaractere();
+    char choixUtilisateur = lireCaractereChoix("12345Q");
 
     switch(choixUtilisateur)
     {

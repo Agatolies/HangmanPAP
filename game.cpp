@@ -105,7 +105,7 @@ void initialiser()
 void jouerCoup()
 {
     // Stocke la lettre proposee par l'utilisateur
-    char lettre = lireCaractere();
+    char lettre = lireCaractereAlpha();
     int lettreDejaProposee = FALSE;
     int cptr = 0;
 

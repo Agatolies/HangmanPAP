@@ -2,6 +2,8 @@
 #define DISPLAY_H_INCLUDED
 
 char lireCaractere();
+char lireCaractereAlpha();
+char lireCaractereChoix(const char*);
 
 void afficherMessageIntroduction();
 void afficherMessageCoupsRestants(int);
@@ -14,6 +16,7 @@ void afficherMessageVotreChoix();
 void afficherMessageRetourMenu();
 void afficherMessageLettresErronees(char*);
 void afficherMessageLettreDejaProposee();
+void afficherMessageSaisieIncorrecte();
 void afficherPendu(int);
 void afficherMenu();
 void afficherOptions();

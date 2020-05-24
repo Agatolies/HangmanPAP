@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 #include "display.h"
 #include "option.h"
@@ -24,7 +25,7 @@
 char lireCaractere()
 {
     /*= Declarations ================================================*/
-    char caractere = 0;
+    char caractere = ' ';
 
     /*= Traitements ================================================*/
     // Le premier caractere est lu
@@ -37,6 +38,32 @@ char lireCaractere()
     while (getchar() != '\n') ;
 
     // Retour du premier caractere lu
+    return caractere;
+}
+
+char lireCaractereChoix(const char* listeChoix)
+{
+    char caractere = lireCaractere();
+
+    while(strchr(listeChoix, caractere) == NULL)
+    {
+        afficherMessageSaisieIncorrecte();
+        caractere = lireCaractere();
+    }
+
+    return caractere;
+}
+
+char lireCaractereAlpha()
+{
+    char caractere = lireCaractere();
+
+    while (caractere < 65 || caractere > 90)
+    {
+        afficherMessageSaisieIncorrecte();
+        caractere = lireCaractere();
+    }
+
     return caractere;
 }
 
@@ -92,12 +119,18 @@ void afficherMessageRetourMenu()
 
 void afficherMessageLettresErronees(char* lettresErronnees)
 {
-    printf("\n Les lettres erronees sont : %s\n", lettresErronnees);
+    if(lettresErronnees[0] != ' ')
+        printf("\n Les lettres erronees sont : %s\n", lettresErronnees);
 }
 
 void afficherMessageLettreDejaProposee()
 {
     printf("\n Cette lettre a deja ete proposee.");
+}
+
+void afficherMessageSaisieIncorrecte()
+{
+    printf(" Saisie incorrecte : ");
 }
 
 void afficherPendu(int cptrErreur)
