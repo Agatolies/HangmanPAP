@@ -19,6 +19,7 @@
 
 #include "dico.h"
 #include "display.h"
+#include "option.h"
 
 /*= FONCTIONS =======================================================*/
 
@@ -31,8 +32,13 @@ int piocherMot(char* motPioche)
     int nombreMots = 0;
     int numMotChoisi = 0;
     char caractereLu = ' ';
+    char nomFichier[20];
+
+    // Selection du fichier dico correspondant au niveau de difficulte
+    sprintf(nomFichier, "dico%c.txt", lireOptionDifficulte());
+
     // Ouverture du dictionnaire en lecture seule
-    dico = fopen("dico.txt", "r");
+    dico = fopen(nomFichier, "r");
 
     // Si le fichier dictionnaire n'a pas pu etre ouvert
     if (dico == NULL)

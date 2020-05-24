@@ -5,7 +5,7 @@ void rafraichirEcranMenu();
 void rafraichirEcranOptions();
 void rafraichirEcranOptionsMode();
 void rafraichirEcranOptionsDifficulte();
-void rafraichirEcranPendu(int);
+void rafraichirEcranPendu(int, char*);
 char gererChoixMenu();
 char gererChoixOptions();
 char gererChoixOptionsMode();

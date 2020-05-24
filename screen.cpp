@@ -70,6 +70,20 @@ void rafraichirEcranOptionsDifficulte()
     gererChoixOptionsDifficulte();
 }
 
+void rafraichirEcranPendu(int coupsRestants, char* lettresErronees)
+{
+    clrscr();
+    afficherMessageIntroduction();
+    afficherPendu(COUPS - coupsRestants);
+    afficherMessageMotSecret(obtenirMotMasque());
+    afficherMessageCoupsRestants(coupsRestants);
+
+    if(lireOptionMode() == 'V')
+        afficherMessageLettresErronees(lettresErronees);
+
+    afficherMessageProposerLettre();
+}
+
 char gererChoixMenu()
 {
     char choixUtilisateur = lireCaractere();
@@ -147,12 +161,3 @@ void quitterProgramme()
     exit(0);
 }
 
-void rafraichirEcranPendu(int coupsRestants)
-{
-    clrscr();
-    afficherMessageIntroduction();
-    afficherPendu(COUPS - coupsRestants);
-    afficherMessageCoupsRestants(coupsRestants);
-    afficherMessageMotSecret(obtenirMotMasque());
-    afficherMessageProposerLettre();
-}

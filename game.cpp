@@ -15,11 +15,13 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <Windows.h>
 
 #include "game.h"
 #include "display.h"
 #include "dico.h"
 #include "screen.h"
+#include "option.h"
 
 /*= CONSTANTES SYMBOLIQUES ==========================================*/
 
@@ -40,6 +42,7 @@ int* lettresTrouvees;
 int coupsRestants;
 int tailleMot;
 int victoire;
+char lettresErronnees[COUPS];
 
 /*= FONCTIONS =======================================================*/
 
@@ -48,11 +51,11 @@ int demarrerJeu()
     initialiser();
 
     // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
-    rafraichirEcranPendu(coupsRestants);
+    rafraichirEcranPendu(coupsRestants, lettresErronnees);
     while (coupsRestants > 0 && victoire == FALSE)
     {
         jouerCoup();
-        rafraichirEcranPendu(coupsRestants);
+        rafraichirEcranPendu(coupsRestants, lettresErronnees);
         victoire = verifierVictoire(lettresTrouvees, tailleMot);
     }
 
@@ -71,12 +74,14 @@ void initialiser()
 {
     int cptr = 0;
 
-    // Réinitialisation des variables globales
-    motSecret[100] = {0};
+    // Réinitialisation des variables du module
     lettresTrouvees = NULL;
     coupsRestants = COUPS;
     tailleMot = 0;
     victoire = FALSE;
+
+    for(cptr = 0 ; cptr < COUPS ; cptr++)
+        lettresErronnees[cptr] = ' ';
 
     // Verification que la fonction piocherMot retourne bien un motSecret existant
     if (piocherMot(motSecret) == FALSE)
@@ -97,16 +102,40 @@ void initialiser()
         lettresTrouvees[cptr] = 0;
 }
 
-
-
 void jouerCoup()
 {
     // Stocke la lettre proposee par l'utilisateur
     char lettre = lireCaractere();
+    int lettreDejaProposee = FALSE;
+    int cptr = 0;
 
-    // Si lettre n'apparait pas dans motSecret, le joueur a un coup en moins
+    // Si lettre n'apparait pas dans motSecret
     if (rechercherLettre(lettre, motSecret, lettresTrouvees) == FALSE)
-        coupsRestants--;
+    {
+        // La lettre est-elle deja dans le tableau lettresErronnees?
+        for(cptr = 0 ; cptr < COUPS ; cptr++)
+        {
+            if(lettre == lettresErronnees[cptr])
+            {
+                lettreDejaProposee = TRUE;
+                break;
+            }
+        }
+
+        // Si oui, pas de coups en moins
+        if(lettreDejaProposee == TRUE)
+        {
+            afficherMessageLettreDejaProposee();
+            Sleep(2000);
+        }
+        // Si non, coups en moins et ajout de la lettre dans tableau
+        else
+        {
+            lettresErronnees[COUPS - coupsRestants] = lettre;
+            coupsRestants--;
+        }
+
+    }
 }
 
 char* obtenirMotMasque()
@@ -114,13 +143,27 @@ char* obtenirMotMasque()
     char* motMasque = (char*) malloc(sizeof(char) * (tailleMot + 1));
     int cptr = 0;
 
-    // Affichage du mot secret en masquant les lettres non trouvees - Exemple : *A**ON
-    for (cptr = 0 ; cptr < tailleMot ; cptr++)
-        // Affichage des lettres si trouvees
-        // Sinon, affichage d'etoiles pour les lettres manquantes
-        motMasque[cptr] = (lettresTrouvees[cptr] == TRUE)
-            ? motSecret[cptr]
-            : '*';
+
+    if(lireOptionMode() == 'I')
+    {
+        // Affichage du mot secret en mode invisible - Exemple : ?+??++
+        for (cptr = 0 ; cptr < tailleMot ; cptr++)
+        {
+            motMasque[cptr] = (lettresTrouvees[cptr] == TRUE)
+                ? '+'
+                : '?';
+        }
+    }
+    else
+    {
+        // Affichage du motSecret en mode visible ou intermediaire - Exemple : *A**ON
+        for (cptr = 0 ; cptr < tailleMot ; cptr++)
+        {
+            motMasque[cptr] = (lettresTrouvees[cptr] == TRUE)
+                ? motSecret[cptr]
+                : '*';
+        }
+    }
 
     motMasque[tailleMot] = '\0';
 
@@ -171,3 +214,5 @@ int rechercherLettre(char lettreProposee, char* motSecret, int* lettresTrouvees)
 
     return lettreExacte;
 }
+
+

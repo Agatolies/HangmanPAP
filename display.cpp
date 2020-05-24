@@ -57,7 +57,7 @@ void afficherMessageCoupsRestants(int coupsRestants)
 
 void afficherMessageMotSecret(char* motMasque)
 {
-    printf("\n Quel est le mot secret ? %s", motMasque);
+    printf("\n Quel est le mot secret ?    \"%s\"", motMasque);
 }
 
 void afficherMessageProposerLettre()
@@ -88,6 +88,16 @@ void afficherMessageVotreChoix()
 void afficherMessageRetourMenu()
 {
     printf("\n Appuyer deux fois sur <entree> pour revenir au Menu principal");
+}
+
+void afficherMessageLettresErronees(char* lettresErronnees)
+{
+    printf("\n Les lettres erronees sont : %s\n", lettresErronnees);
+}
+
+void afficherMessageLettreDejaProposee()
+{
+    printf("\n Cette lettre a deja ete proposee.");
 }
 
 void afficherPendu(int cptrErreur)

@@ -12,6 +12,8 @@ void afficherMessagePerdant(char*);
 void afficherMessageErreurDico();
 void afficherMessageVotreChoix();
 void afficherMessageRetourMenu();
+void afficherMessageLettresErronees(char*);
+void afficherMessageLettreDejaProposee();
 void afficherPendu(int);
 void afficherMenu();
 void afficherOptions();
