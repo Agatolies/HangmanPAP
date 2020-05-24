@@ -16,6 +16,7 @@
 #include <ctype.h>
 
 #include "display.h"
+#include "option.h"
 
 /*= FONCTIONS =======================================================*/
 
@@ -112,10 +113,40 @@ void afficherPendu(int cptrErreur)
 
 void afficherMenu()
 {
-    printf("\n <1>   Nouvelle partie\n");
-    //printf(" <2>   Options de jeu\n");
+    printf("\n *** MENU PRINCIPAL ***");
+    printf("\n\n <1>   Nouvelle partie\n");
+    printf(" <2>   Options de jeu\n");
     printf(" <Q>   Quitter\n");
 }
+
+void afficherOptions()
+{
+    printf("\n *** OPTIONS ***\n\n");
+    printf(" <1> Difficulte du dictionnaire   (%s)\n", lireOptionDifficulteString());
+    printf(" <2> Mode du jeu                  (%s)\n", lireOptionModeString());
+    printf(" <Q> Revenir a l'ecran principal\n");
+}
+
+void afficherOptionsMode()
+{
+    printf("\n *** OPTIONS MODE ***\n\n");
+    printf(" <V> %s\n", convertirOptionModeString('V'));
+    printf(" <N> %s\n", convertirOptionModeString('N'));
+    printf(" <I> %s\n", convertirOptionModeString('I'));
+    printf(" <Q> Revenir a l'ecran des options\n");
+}
+
+void afficherOptionsDifficulte()
+{
+    printf("\n *** OPTIONS DIFFICULTE ***\n\n");
+    printf(" <1> %s\n", convertirOptionDifficulteString('1'));
+    printf(" <2> %s\n", convertirOptionDifficulteString('2'));
+    printf(" <3> %s\n", convertirOptionDifficulteString('3'));
+    printf(" <4> %s\n", convertirOptionDifficulteString('4'));
+    printf(" <5> %s\n", convertirOptionDifficulteString('5'));
+    printf(" <Q> Revenir a l'ecran des options\n");
+}
+
 
 
 

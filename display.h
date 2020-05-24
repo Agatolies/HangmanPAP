@@ -14,5 +14,8 @@ void afficherMessageVotreChoix();
 void afficherMessageRetourMenu();
 void afficherPendu(int);
 void afficherMenu();
+void afficherOptions();
+void afficherOptionsMode();
+void afficherOptionsDifficulte();
 
 #endif // DISPLAY_H_INCLUDED

@@ -27,7 +27,7 @@
 #define FALSE 0
 #define COUPS 6
 
-/*- DECLARATIONS GLOBALES -------------------------------------------*/
+/*= DECLARATIONS GLOBALES ===========================================*/
 
 /* L'utilisation des variables globales est justifiée par le fait que*/
 /* toutes les fonctions de ce module les utilisent.                  */

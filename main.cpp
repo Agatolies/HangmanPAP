@@ -15,14 +15,7 @@
 /*= Fonction principale =============================================*/
 int main()
 {
-    char choixUtilisateur = ' ';
-
-    do
-    {
-        rafraichirEcranMenu();
-        choixUtilisateur = gererChoixMenu();
-    }
-    while (choixUtilisateur != 'Q');
+    rafraichirEcranMenu();
 
     return 0;
 }
