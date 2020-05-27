@@ -42,7 +42,7 @@ int* lettresTrouvees;
 int coupsRestants;
 int tailleMot;
 int victoire;
-char lettresErronnees[COUPS];
+char lettresErronees[COUPS];
 
 /*= FONCTIONS =======================================================*/
 
@@ -51,11 +51,11 @@ int demarrerJeu()
     initialiser();
 
     // Tant qu'il reste au moins un coup a jouer ou que la partie n'est pas gagnee
-    rafraichirEcranPendu(coupsRestants, lettresErronnees);
+    rafraichirEcranPendu(coupsRestants, lettresErronees);
     while (coupsRestants > 0 && victoire == FALSE)
     {
         jouerCoup();
-        rafraichirEcranPendu(coupsRestants, lettresErronnees);
+        rafraichirEcranPendu(coupsRestants, lettresErronees);
         victoire = verifierVictoire(lettresTrouvees, tailleMot);
     }
 
@@ -81,7 +81,7 @@ void initialiser()
     victoire = FALSE;
 
     for(cptr = 0 ; cptr < COUPS ; cptr++)
-        lettresErronnees[cptr] = ' ';
+        lettresErronees[cptr] = ' ';
 
     // Verification que la fonction piocherMot retourne bien un motSecret existant
     if (piocherMot(motSecret) == FALSE)
@@ -112,10 +112,10 @@ void jouerCoup()
     // Si lettre n'apparait pas dans motSecret
     if (rechercherLettre(lettre, motSecret, lettresTrouvees) == FALSE)
     {
-        // La lettre est-elle deja dans le tableau lettresErronnees?
+        // La lettre est-elle deja dans le tableau lettresErronees?
         for(cptr = 0 ; cptr < COUPS ; cptr++)
         {
-            if(lettre == lettresErronnees[cptr])
+            if(lettre == lettresErronees[cptr])
             {
                 lettreDejaProposee = TRUE;
                 break;
@@ -131,7 +131,7 @@ void jouerCoup()
         // Si non, coups en moins et ajout de la lettre dans tableau
         else
         {
-            lettresErronnees[COUPS - coupsRestants] = lettre;
+            lettresErronees[COUPS - coupsRestants] = lettre;
             coupsRestants--;
         }
 

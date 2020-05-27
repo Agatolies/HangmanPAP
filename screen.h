@@ -8,9 +8,9 @@ void rafraichirEcranOptionsDifficulte();
 void rafraichirEcranPendu(const int, const char*);
 void rafraichirEcranAPropos();
 char gererChoixMenu();
-char gererChoixOptions();
-char gererChoixOptionsMode();
-char gererChoixOptionsDifficulte();
+void gererChoixOptions();
+void gererChoixOptionsMode();
+void gererChoixOptionsDifficulte();
 void quitterProgramme();
 
 #endif // SCREEN_H_INCLUDED

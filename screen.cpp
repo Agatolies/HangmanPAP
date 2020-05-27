@@ -49,7 +49,7 @@ void rafraichirEcranOptions()
     afficherMessageVotreChoix();
     gererChoixOptions();
 }
-
+//vide le contenu
 void rafraichirEcranOptionsMode()
 {
     clrscr();
@@ -117,7 +117,7 @@ char gererChoixMenu()
     return choixUtilisateur;
 }
 
-char gererChoixOptions()
+void gererChoixOptions()
 {
     char choixUtilisateur = lireCaractereChoix("123Q");
 
@@ -138,7 +138,7 @@ char gererChoixOptions()
     }
 }
 
-char gererChoixOptionsMode()
+void gererChoixOptionsMode()
 {
     char choixUtilisateur = lireCaractereChoix("VNIQ");
 
@@ -154,7 +154,7 @@ char gererChoixOptionsMode()
     }
 }
 
-char gererChoixOptionsDifficulte()
+void gererChoixOptionsDifficulte()
 {
     char choixUtilisateur = lireCaractereChoix("12345Q");
 
