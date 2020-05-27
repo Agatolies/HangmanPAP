@@ -70,7 +70,7 @@ void rafraichirEcranOptionsDifficulte()
     gererChoixOptionsDifficulte();
 }
 
-void rafraichirEcranPendu(int coupsRestants, char* lettresErronees)
+void rafraichirEcranPendu(const int coupsRestants, const char* lettresErronees)
 {
     clrscr();
     afficherMessageIntroduction();
@@ -84,9 +84,19 @@ void rafraichirEcranPendu(int coupsRestants, char* lettresErronees)
     afficherMessageProposerLettre();
 }
 
+void rafraichirEcranAPropos()
+{
+    clrscr();
+    afficherMessageIntroduction();
+    afficherPendu(COUPS);
+    afficherMessageAPropos();
+    afficherMessageRetourMenu();
+    lireCaractere();
+}
+
 char gererChoixMenu()
 {
-    char choixUtilisateur = lireCaractereChoix("12Q");
+    char choixUtilisateur = lireCaractereChoix("123Q");
 
     switch(choixUtilisateur)
     {
@@ -95,6 +105,9 @@ char gererChoixMenu()
             break;
         case '2' :
             rafraichirEcranOptions();
+            break;
+        case '3' :
+            rafraichirEcranAPropos();
             break;
         case 'Q' :
             quitterProgramme();
@@ -106,7 +119,7 @@ char gererChoixMenu()
 
 char gererChoixOptions()
 {
-    char choixUtilisateur = lireCaractereChoix("12Q");
+    char choixUtilisateur = lireCaractereChoix("123Q");
 
     switch(choixUtilisateur)
     {
@@ -116,6 +129,9 @@ char gererChoixOptions()
         case '2' :
             rafraichirEcranOptionsMode();
             break;
+        case '3' :
+            retablirOptions();
+            rafraichirEcranOptions();
         case 'Q' :
             rafraichirEcranMenu();
             break;

@@ -39,6 +39,8 @@
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="option.cpp" />
+		<Unit filename="option.h" />
 		<Unit filename="screen.cpp" />
 		<Unit filename="screen.h" />
 		<Extensions>

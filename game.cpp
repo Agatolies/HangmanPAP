@@ -179,7 +179,7 @@ void afficherMessageFinPartie()
 
 // Fonction qui verifie si toutes les lettres du mot ont ete trouvees
 // Et donc que la partie est gagnee
-int verifierVictoire(int* lettresTrouvees, int tailleMot)
+int verifierVictoire(const int* lettresTrouvees, const int tailleMot)
 {
     int cptr = 0;
     int joueurGagne = 1;
@@ -196,21 +196,23 @@ int verifierVictoire(int* lettresTrouvees, int tailleMot)
 }
 
 // Fonction qui verifie si la lettre proposee se trouve dans motSecret
-int rechercherLettre(char lettreProposee, char* motSecret, int* lettresTrouvees)
+int rechercherLettre(const char lettreProposee, const char* motSecret, int* lettresTrouvees)
 {
     int cptr = 0;
-    int lettreExacte = 0;
+    int lettreExacte = FALSE;
 
     // Verification que la lettre proposee se trouve dans motSecret
     for (cptr = 0 ; motSecret[cptr] != '\0' ; cptr++)
+    {
         // Si la lettre y est
         if (lettreProposee == motSecret[cptr])
         {
             // Memorisation de la lettre presente dans motSecret
-            lettreExacte = 1;
+            lettreExacte = TRUE;
             // La case du tableau de booleens correspondant a la lettre actuelle est mise a 1
-            lettresTrouvees[cptr] = 1;
+            lettresTrouvees[cptr] = TRUE;
         }
+    }
 
     return lettreExacte;
 }

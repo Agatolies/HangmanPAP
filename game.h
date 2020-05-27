@@ -3,10 +3,10 @@
 
 int demarrerJeu();
 void initialiser();
-int rechercherLettre(char, char*, int*);
+int rechercherLettre(const char, const char*, int*);
 void jouerCoup();
 char* obtenirMotMasque();
-int verifierVictoire(int*, int);
+int verifierVictoire(const int*, const int);
 void afficherMessageFinPartie();
 
 #endif // GAME_H_INCLUDED

@@ -43,7 +43,7 @@ int piocherMot(char* motPioche)
     // Si le fichier dictionnaire n'a pas pu etre ouvert
     if (dico == NULL)
     {
-        afficherMessageErreurDico();
+        afficherMessageErreurFichier(nomFichier);
         // Retour de 0 pour indiquer que la fonction a echoue
         return 0;
         // A la lecture du return, la fonction s'arrete imm�eiatement.
@@ -87,7 +87,7 @@ int piocherMot(char* motPioche)
 }
 
 // Fonction pour generer un nombre aleatoire utile a la fonction piocherMot
-int genererNombreAleatoire(int nombreMax)
+int genererNombreAleatoire(const int nombreMax)
 {
     srand(time(NULL));
     return (rand() % nombreMax);

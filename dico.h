@@ -2,6 +2,6 @@
 #define DICO_H_INCLUDED
 
 int piocherMot(char *motPioche);
-int genererNombreAleatoire(int nombreMax);
+int genererNombreAleatoire(const int nombreMax);
 
 #endif // DICO_H_INCLUDED

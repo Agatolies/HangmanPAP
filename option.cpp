@@ -11,57 +11,45 @@
 /*                                                                   */
 /*= DIRECTIVES DE PRECOMPILATION ====================================*/
 
+#include <stdio.h>
+#include <string.h>
+
 #include "option.h"
 #include "display.h"
 
 /*= CONSTANTES SYMBOLIQUES ==========================================*/
 
+#define OPTION_DIFFICULTE_DEFAUT '2'
+#define OPTION_MODE_DEFAUT 'V'
+
 /*= DECLARATIONS GLOBALES ===========================================*/
 
-char optionMode = 'V';
-char optionDifficulte = '2';
+char optionDifficulte = OPTION_DIFFICULTE_DEFAUT;
+char optionMode = OPTION_MODE_DEFAUT;
+const char* patternFichier = "difficulte=%c,mode=%c";
+const char* nomFichier = "options.txt";
+
 
 /*= FONCTIONS =======================================================*/
 
-char lireOptionMode()
-{
-    return optionMode;
-}
-
-char* lireOptionModeString()
-{
-   return convertirOptionModeString(optionMode);
-}
-
-char* convertirOptionModeString(char mode)
-{
-    switch(mode)
-    {
-        case 'V' :
-            return "Visible";
-        case 'N' :
-            return "Intermediaire";
-        case 'I' :
-            return "Invisible";
-    }
-}
-
-void ecrireOptionMode(char mode)
-{
-    optionMode = mode;
-}
-
 char lireOptionDifficulte()
 {
+    lireFichierOptions();
     return optionDifficulte;
 }
 
-char* lireOptionDifficulteString()
+void ecrireOptionDifficulte(const char difficulte)
 {
-    return convertirOptionDifficulteString(optionDifficulte);
+    optionDifficulte = difficulte;
+    ecrireFichierOptions();
 }
 
-char* convertirOptionDifficulteString(char difficulte)
+const char* lireOptionDifficulteString()
+{
+    return convertirOptionDifficulteString(lireOptionDifficulte());
+}
+
+const char* convertirOptionDifficulteString(const char difficulte)
 {
     switch(difficulte)
     {
@@ -75,10 +63,76 @@ char* convertirOptionDifficulteString(char difficulte)
             return "Tres difficile";
         case '5' :
             return "Diabolique";
+        default :
+            return "";
     }
 }
 
-void ecrireOptionDifficulte(char difficulte)
+char lireOptionMode()
 {
-    optionDifficulte = difficulte;
+    lireFichierOptions();
+
+    return optionMode;
+}
+
+void ecrireOptionMode(const char mode)
+{
+    optionMode = mode;
+    ecrireFichierOptions();
+}
+
+const char* lireOptionModeString()
+{
+   return convertirOptionModeString(lireOptionMode());
+}
+
+const char* convertirOptionModeString(const char mode)
+{
+    switch(mode)
+    {
+        case 'V' :
+            return "Visible";
+        case 'N' :
+            return "Intermediaire";
+        case 'I' :
+            return "Invisible";
+        default :
+            return "";
+    }
+}
+
+void ecrireFichierOptions()
+{
+    FILE* fichier = NULL;
+
+    fichier = fopen(nomFichier, "w+");
+
+    if (fichier != NULL)
+    {
+        fprintf(fichier, patternFichier, optionDifficulte, optionMode);
+        fclose(fichier);
+    }
+}
+
+void lireFichierOptions()
+{
+    FILE* fichier = NULL;
+
+    fichier = fopen(nomFichier, "r");
+
+    if (fichier == NULL)
+    {
+        ecrireFichierOptions();
+        fichier = fopen(nomFichier, "r");
+    }
+
+    fscanf(fichier, patternFichier, &optionDifficulte, &optionMode);
+    fclose(fichier);
+}
+
+void retablirOptions()
+{
+    optionDifficulte = OPTION_DIFFICULTE_DEFAUT;
+    optionMode = OPTION_MODE_DEFAUT;
+    ecrireFichierOptions();
 }

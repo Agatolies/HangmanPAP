@@ -77,12 +77,12 @@ void afficherMessageIntroduction()
     printf(" \\_____/\\___| \\_|  \\___|_| |_|\\__,_|\\___/ \\__,_|_|_|_|\\__,_|_| |_|\\__|\n\n");
 }
 
-void afficherMessageCoupsRestants(int coupsRestants)
+void afficherMessageCoupsRestants(const int coupsRestants)
 {
     printf("\n\n Il vous reste %d coups a jouer", coupsRestants);
 }
 
-void afficherMessageMotSecret(char* motMasque)
+void afficherMessageMotSecret(const char* motMasque)
 {
     printf("\n Quel est le mot secret ?    \"%s\"", motMasque);
 }
@@ -92,19 +92,14 @@ void afficherMessageProposerLettre()
     printf("\n Proposez une lettre : ");
 }
 
-void afficherMessageGagnant(char* motSecret)
+void afficherMessageGagnant(const char* motSecret)
 {
     printf("\n\n Gagne ! Le mot secret etait bien : %s", motSecret);
 }
 
-void afficherMessagePerdant(char* motSecret)
+void afficherMessagePerdant(const char* motSecret)
 {
     printf("\n\n Perdu ! Le mot secret etait : %s", motSecret);
-}
-
-void afficherMessageErreurDico()
-{
-    printf("\n Impossible de charger le dictionnaire de mots");
 }
 
 void afficherMessageVotreChoix()
@@ -117,8 +112,9 @@ void afficherMessageRetourMenu()
     printf("\n Appuyer deux fois sur <entree> pour revenir au Menu principal");
 }
 
-void afficherMessageLettresErronees(char* lettresErronnees)
+void afficherMessageLettresErronees(const char* lettresErronnees)
 {
+    // Si la premiere cellule du tableau contient un ' ' c'est que ce tableau est vide
     if(lettresErronnees[0] != ' ')
         printf("\n Les lettres erronees sont : %s\n", lettresErronnees);
 }
@@ -133,7 +129,19 @@ void afficherMessageSaisieIncorrecte()
     printf(" Saisie incorrecte : ");
 }
 
-void afficherPendu(int cptrErreur)
+void afficherMessageErreurFichier(const char* nomFichier)
+{
+    printf("Impossible d'ouvrir le fichier %s.", nomFichier);
+}
+
+void afficherMessageAPropos()
+{
+    printf("\n Ce jeu du pendu a ete cree par Laure D'Este en mai 2020 dans le cadre\n");
+    printf(" du cours de Principes Algorithmiques et Programmation donne par\n");
+    printf(" Monsieur S. Evrard de l'ecole IPEPS Seraing.\n");
+}
+
+void afficherPendu(const int cptrErreur)
 {
     char tete        = (cptrErreur >= 1) ? '@'  : ' ';
     char buste       = (cptrErreur >= 2) ? '|'  : ' ';
@@ -159,14 +167,16 @@ void afficherMenu()
     printf("\n *** MENU PRINCIPAL ***");
     printf("\n\n <1>   Nouvelle partie\n");
     printf(" <2>   Options de jeu\n");
+    printf(" <3>   A propos\n");
     printf(" <Q>   Quitter\n");
 }
 
 void afficherOptions()
 {
     printf("\n *** OPTIONS ***\n\n");
-    printf(" <1> Difficulte du dictionnaire   (%s)\n", lireOptionDifficulteString());
-    printf(" <2> Mode du jeu                  (%s)\n", lireOptionModeString());
+    printf(" <1> Difficulte du dictionnaire     (%s)\n", lireOptionDifficulteString());
+    printf(" <2> Mode du jeu                    (%s)\n", lireOptionModeString());
+    printf(" <3> Options par defaut\n");
     printf(" <Q> Revenir a l'ecran principal\n");
 }
 
