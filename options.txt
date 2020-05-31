@@ -1,1 +1,1 @@
-difficulte=1,mode=I
+difficulte=1,mode=N

@@ -16,6 +16,5 @@
 int main()
 {
     rafraichirEcranMenu();
-
     return 0;
 }
