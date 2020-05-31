@@ -24,13 +24,25 @@
 
 /*= DECLARATIONS GLOBALES ===========================================*/
 
+// Caractere allant de '1' a '5' representant le niveau de difficulte
 char optionDifficulte = OPTION_DIFFICULTE_DEFAUT;
+// Caractere 'I' pour invisible, 'V' pour visible et 'N' pour intermediaire
 char optionMode = OPTION_MODE_DEFAUT;
+// Masque utilise par fprintf et fscanf representant le contenu du fichier d'option
 const char* patternFichier = "difficulte=%c,mode=%c";
+// Chaine de caracteres representant le nom du fichier
 const char* nomFichier = "options.txt";
 
 
 /*= FONCTIONS =======================================================*/
+
+/*
+ * Fonction:  lireOptionDifficulte
+ * --------------------
+ * Lit le caractere choisi pour le niveau de difficulte
+ *
+ *  retourne: caractere de '1' a '5' representant le niveau de difficulte
+ */
 
 char lireOptionDifficulte()
 {
@@ -38,16 +50,44 @@ char lireOptionDifficulte()
     return optionDifficulte;
 }
 
+
+/*
+ * Fonction:
+ * --------------------
+ * Inscrit la valeur de la difficulte choisie par l'utilisateur
+ * dans le fichier d'options.
+ *
+ *  difficulte = caractere allant de '1' a '5' representant le niveau de difficulte
+ */
+
 void ecrireOptionDifficulte(const char difficulte)
 {
     optionDifficulte = difficulte;
     ecrireFichierOptions();
 }
 
+/*
+ * Fonction:  lireOptionModeString
+ * --------------------
+ * Retourne le niveau de difficulte choisie en toutes lettres ('Facile', 'Difficile', ...)
+ *
+ *  retourne: chaine de caractere representant le niveau de difficulte choisis en toutes lettres
+ */
+
 const char* lireOptionDifficulteString()
 {
     return convertirOptionDifficulteString(lireOptionDifficulte());
 }
+
+
+/*
+ * Fonction:  convertirOptionDifficulteString
+ * --------------------
+ * Converti le caractere de l'option de difficulte choisie (de '1' a '5' )
+ * en un mot complet repris dans une chaine de caractere.
+ *
+ *  retourne: chaine de caractere de l'option choisie en toute lettre
+ */
 
 const char* convertirOptionDifficulteString(const char difficulte)
 {
@@ -68,6 +108,14 @@ const char* convertirOptionDifficulteString(const char difficulte)
     }
 }
 
+/*
+ * Fonction:  lireOptionMode
+ * --------------------
+ * Lit le caractere choisi pour le mode
+ *
+ *  retourne: caractere  'I', 'V' ou 'N'  representant le mode choisi
+ */
+
 char lireOptionMode()
 {
     lireFichierOptions();
@@ -75,16 +123,43 @@ char lireOptionMode()
     return optionMode;
 }
 
+
+/*
+ * Fonction:  ecrireOptionMode
+ * --------------------
+ * Inscrit la valeur du mode choisi par l'utilisateur dans le fichier d'options
+ *
+ *  mode = caractere  'I', 'V' ou 'N'  representant le mode choisi
+ */
+
 void ecrireOptionMode(const char mode)
 {
     optionMode = mode;
     ecrireFichierOptions();
 }
 
+/*
+ * Fonction:  lireOptionModeString
+ * --------------------
+ * Retourne le mode choisi en toutes lettres ('Invisible', 'Intermediaire', 'Visible')
+ *
+ *  retourne: chaine de caractere representant le mode choisi en toutes lettres
+ */
+
 const char* lireOptionModeString()
 {
    return convertirOptionModeString(lireOptionMode());
 }
+
+
+/*
+ * Fonction:  convertirOptionModeString
+ * --------------------
+ * Converti le caractere du mode choisi ('V', 'N' ou 'I') en
+ * un mot complet repris dans une chaine de caractere.
+ *
+ *  retourne: chaine de caractere du choisi en toute lettre
+ */
 
 const char* convertirOptionModeString(const char mode)
 {
@@ -101,6 +176,15 @@ const char* convertirOptionModeString(const char mode)
     }
 }
 
+
+/*
+ * Fonction:  ecrireFichierOptions
+ * --------------------
+ * Ouvre le fichier d'options en mode ecriture.
+ * Si le fichier n'existe pas, il est cree.
+ * Et inscrit dedans la valeur courante des variables du module.
+ */
+
 void ecrireFichierOptions()
 {
     FILE* fichier = NULL;
@@ -113,6 +197,16 @@ void ecrireFichierOptions()
         fclose(fichier);
     }
 }
+
+
+/*
+ * Fonction:  lireFichierOptions
+ * --------------------
+ * Ouvre le fichier d'options en mode lecture et initialise
+ * les variables du module avec le contenu de ce fichier.
+ * Si le fichier n'existe pas, alors il est cree avec
+ * les options par defaut.
+ */
 
 void lireFichierOptions()
 {
@@ -129,6 +223,13 @@ void lireFichierOptions()
     fscanf(fichier, patternFichier, &optionDifficulte, &optionMode);
     fclose(fichier);
 }
+
+
+/*
+ * Fonction:
+ * --------------------
+ * Retablit le fichier d'options avec les valeurs par defaut.
+ */
 
 void retablirOptions()
 {

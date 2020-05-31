@@ -23,10 +23,27 @@
 
 /*= FONCTIONS =======================================================*/
 
+/*
+ * Fonction:  piocherMot
+ * --------------------
+ * Selectionne le fichier dico correspondant au niveau de difficulte,
+ * ouvre ce fichier en lecture seule et en compte le nombre de mot.
+ * Pioche un mot aléatoirement dans le fichier et parcourt a nouveau le
+ * fichier jusqu'a la premiere lettre du mot pioche.
+ * Affecte les lettres de ce mot dans la chaîne de caractre motSecret du
+ * module game.
+ *
+ *  motPioche: un pointeur sur char pour une zone mémoire nulle
+ *             d'une taille de 50 cellules.
+ *
+ *  retourne: un entier booléen.
+ */
+
 // Fonction pour piocher un mot au hasard
 int piocherMot(char* motPioche)
 {
     /*- Declarations ================================================*/
+
     // Le pointeur de fichier qui va contenir le fichier dictionnaire
     FILE* dico = NULL;
     int nombreMots = 0;
@@ -34,7 +51,6 @@ int piocherMot(char* motPioche)
     char caractereLu = ' ';
     char nomFichier[20];
 
-    // Selection du fichier dico correspondant au niveau de difficulte
     sprintf(nomFichier, "dico%c.txt", lireOptionDifficulte());
 
     // Ouverture du dictionnaire en lecture seule
@@ -46,7 +62,7 @@ int piocherMot(char* motPioche)
         afficherMessageErreurFichier(nomFichier);
         // Retour de 0 pour indiquer que la fonction a echoue
         return 0;
-        // A la lecture du return, la fonction s'arrete imm�eiatement.
+        // A la lecture du return, la fonction s'arrete immediatement.
     }
 
     // Somme des mots dans le fichier via comptage des '\n'
@@ -74,7 +90,7 @@ int piocherMot(char* motPioche)
     }
 
     // Le curseur du fichier est positionne au bon endroit pour lire la ligne
-    fgets(motPioche, 100, dico);
+    fgets(motPioche, 50, dico);
 
     // Modification du '\n' en '\0' en fin de ligne
     motPioche[strlen(motPioche) - 1] = '\0';
@@ -86,7 +102,18 @@ int piocherMot(char* motPioche)
     return 1;
 }
 
-// Fonction pour generer un nombre aleatoire utile a la fonction piocherMot
+
+/*
+ * Fonction:
+ * --------------------
+ * Genere un nombre aletaoire compris entre 0 et nombreMax.
+ *
+ *  nombreMax: entier representant le total de mot dans un fichier
+ *             dico.
+ *
+ *  retourne: un entier
+ */
+
 int genererNombreAleatoire(const int nombreMax)
 {
     srand(time(NULL));

@@ -18,6 +18,7 @@
 
 #include "display.h"
 #include "option.h"
+#include "myconio.h"
 
 /*= FONCTIONS =======================================================*/
 
@@ -102,17 +103,19 @@ char lireCaractereAlpha()
 /*
  * Fonction:  afficherMessageIntroduction
  * --------------------
- * Ecrit dans la console le nom stylise de l'application.
+ * Ecrit dans la console le nom stylise de l'application en couleur
  */
 
 void afficherMessageIntroduction()
 {
-    printf("  _           ______              _             _ _ _             _   \n");
-    printf(" | |          | ___ \\            | |           (_) | |           | |  \n");
-    printf(" | |     ___  | |_/ /__ _ __   __| | ___  _   _ _| | | __ _ _ __ | |_ \n");
-    printf(" | |    / _ \\ |  __/ _ \\ '_ \\ / _` |/ _ \\| | | | | | |/ _` | '_ \\| __|\n");
-    printf(" | |___|  __/ | | |  __/ | | | (_| | (_) | |_| | | | | (_| | | | | |_ \n");
-    printf(" \\_____/\\___| \\_|  \\___|_| |_|\\__,_|\\___/ \\__,_|_|_|_|\\__,_|_| |_|\\__|\n\n");
+    textcolor(CYAN);
+    cprintf("  _           ______              _             _ _ _             _   \n");
+    cprintf(" | |          | ___ \\            | |           (_) | |           | |  \n");
+    cprintf(" | |     ___  | |_/ /__ _ __   __| | ___  _   _ _| | | __ _ _ __ | |_ \n");
+    cprintf(" | |    / _ \\ |  __/ _ \\ '_ \\ / _` |/ _ \\| | | | | | |/ _` | '_ \\| __|\n");
+    cprintf(" | |___|  __/ | | |  __/ | | | (_| | (_) | |_| | | | | (_| | | | | |_ \n");
+    cprintf(" \\_____/\\___| \\_|  \\___|_| |_|\\__,_|\\___/ \\__,_|_|_|_|\\__,_|_| |_|\\__|\n\n");
+    textcolor(WHITE);
 }
 
 
@@ -179,7 +182,9 @@ void afficherMessageProposerLettre()
 
 void afficherMessageGagnant(const char* motSecret)
 {
-    printf("\n\n Gagne ! Le mot secret etait bien : %s\n", motSecret);
+    textcolor(GREEN);
+    cprintf("\n\n Gagne ! Le mot secret etait bien : %s\n", motSecret);
+    textcolor(WHITE);
 }
 
 
@@ -195,7 +200,9 @@ void afficherMessageGagnant(const char* motSecret)
 
 void afficherMessagePerdant(const char* motSecret)
 {
-    printf("\n\n Perdu ! Le mot secret etait : %s\n", motSecret);
+    textcolor(RED);
+    cprintf("\n\n Perdu ! Le mot secret etait : %s\n", motSecret);
+    textcolor(WHITE);
 }
 
 
@@ -273,7 +280,8 @@ void afficherMessageSaisieIncorrecte()
  * --------------------
  * Ecrit dans la console un message si le fichier n'existe pas.
  *
- *  nomFichier: une chaine de caractere reprenant le nom du fichier.
+ *  nomFichier: une chaine de caractere reprenant le nom du fichier
+ *              avec son extension.
  */
 
 void afficherMessageErreurFichier(const char* nomFichier)
@@ -286,6 +294,7 @@ void afficherMessageErreurFichier(const char* nomFichier)
  * Fonction:  afficherMessageAPropos
  * --------------------
  * Ecrit dans la console un message reprenant les informations sur le pendu.
+ * Telles que son auteur, le contexte dans lequel il a ete realise...
  */
 
 void afficherMessageAPropos()
@@ -298,7 +307,7 @@ void afficherMessageAPropos()
 
 
 /*
- * Fonction:
+ * Fonction:  afficherPendu
  * --------------------
  * Ecrit dans la console un message sous la forme d'un pendu en format ASCII.
  * Le pendu evolue en fonction du nombre d'erreurs.
@@ -332,7 +341,7 @@ void afficherPendu(const int cptrErreur)
 /*
  * Fonction:  afficherMenu
  * --------------------
- * Ecrit dans la console un message reprenant les options du menu principal.
+ * Ecrit dans la console les differents choix du menu principal.
  */
 
 void afficherMenu()
@@ -348,16 +357,27 @@ void afficherMenu()
 /*
  * Fonction:  afficherOptions
  * --------------------
- * Ecrit dans la console un message reprenant les options du menu options.
- * Ainsi que le niveau de difficulte et le mode (par defaut ou selectionne
+ * Ecrit dans la console les differents choix du menu options,
+ * ainsi que le niveau de difficulte et le mode (par defaut ou selectionne
  * par l'utilisateur).
  */
 
 void afficherOptions()
 {
-    printf("\n *** OPTIONS ***\n\n");
-    printf(" <1> Difficulte du dictionnaire     (%s)\n", lireOptionDifficulteString());
-    printf(" <2> Mode du jeu                    (%s)\n", lireOptionModeString());
+    cprintf("\n *** OPTIONS ***\n\n");
+
+    printf(" <1> Difficulte du dictionnaire     (");
+    textcolor(CYAN);
+    cprintf("%s", lireOptionDifficulteString());
+    textcolor(WHITE);
+    printf(")\n");
+
+    printf(" <2> Mode du jeu                    (");
+    textcolor(CYAN);
+    cprintf("%s", lireOptionModeString());
+    textcolor(WHITE);
+    printf(")\n");
+
     printf(" <3> Options par defaut\n");
     printf(" <Q> Revenir a l'ecran principal\n");
 }
@@ -366,7 +386,7 @@ void afficherOptions()
 /*
  * Fonction:  afficherOptionsMode
  * --------------------
- * Ecrit dans la console un message reprenant les options du menu mode.
+ * Ecrit dans la console les differents choix du menu options mode.
  * La fonction convertirOptionModeString est utilisee pour afficher les
  * differents modes possibles en toutes lettres.
  */
@@ -384,7 +404,7 @@ void afficherOptionsMode()
 /*
  * Fonction:  afficherOptionsDifficulte
  * --------------------
- * Ecrit dans la console un message reprenant les options du menu difficulte.
+ * Ecrit dans la console les differents choix du menu options difficulte.
  * La fonction convertirOptionDifficulteString est utilisee pour afficher les
  * differents choix de difficultes possibles en toutes lettres.
  */

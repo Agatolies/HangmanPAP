@@ -1,12 +1,13 @@
 #ifndef GAME_H_INCLUDED
 #define GAME_H_INCLUDED
 
-int demarrerJeu();
+void demarrerJeu();
 void initialiser();
-int rechercherLettre(const char, const char*, int*);
+int rechercherLettre(const char);
 void jouerCoup();
-char* obtenirMotMasque();
-int verifierVictoire(const int*, const int);
+void rafraichirMotMasque();
+int verifierVictoire();
+void rafraichirEcranPendu();
 void afficherMessageFinPartie();
 
 #endif // GAME_H_INCLUDED
