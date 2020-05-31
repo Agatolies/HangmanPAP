@@ -154,9 +154,6 @@ char gererChoixMenu()
  * Lit le caractere saisi par l'utilisateur, verifie qu'il fait bien
  * partie des caracteres autorises (saisie securisee) et le redirige
  * vers la fonctionnalite choisie.
- *
- *
- *
  */
 
 void gererChoixOptions()
@@ -181,12 +178,9 @@ void gererChoixOptions()
 /*
  * Fonction:  gererChoixOptionsMode
  * --------------------
- *
- *
- *
- *
- *
- *
+ * Lit le caractere saisi par l'utilisateur, verifie qu'il fait bien
+ * partie des caracteres autorises (saisie securisee) et le redirige
+ * vers la fonctionnalite choisie.
  */
 
 void gererChoixOptionsMode()
@@ -209,12 +203,9 @@ void gererChoixOptionsMode()
 /*
  * Fonction:  gererChoixOptionsDifficulte
  * --------------------
- *
- *
- *
- *
- *
- *
+ * Lit le caractere saisi par l'utilisateur, verifie qu'il fait bien
+ * partie des caracteres autorises (saisie securisee) et le redirige
+ * vers la fonctionnalite choisie.
  */
 
 void gererChoixOptionsDifficulte()

@@ -39,10 +39,12 @@
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="option.cpp" />
-		<Unit filename="option.h" />
 		<Unit filename="menu.cpp" />
 		<Unit filename="menu.h" />
+		<Unit filename="myconio.cpp" />
+		<Unit filename="myconio.h" />
+		<Unit filename="option.cpp" />
+		<Unit filename="option.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
